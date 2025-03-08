@@ -48,24 +48,24 @@ public class Products {
             session.setAttribute("redirectURL",redirectURL);
             return "redirect:/signin";
         }
-//        session.setAttribute("mainProductName",productRepo);
-//        List<SubProducts> subProducts=productRepo.findSubProduct(prodName);
-//        System.out.println(subProducts.get(0).getSubTypeName());
-//        List<Map<String, String>> base64Images = new ArrayList<>();
-//
-//        for (SubProducts subProduct : subProducts) {
-//            Blob blob = new SerialBlob(subProduct.getProduct().getProdImg());
-//            byte[] bytes = blob.getBytes(1, (int) blob.length());
-//            String base64Image = Base64.getEncoder().encodeToString(bytes);
-//            Map<String, String> prodDetails = new HashMap<>();
-//            prodDetails.put("img", base64Image);
-//            prodDetails.put("prodName", subProduct.getSubTypeName());
-//            prodDetails.put("suburl", "/product/productdescription/" + subProduct.getSubTypeName());
-//
-//            base64Images.add(prodDetails);
-//        }
-//
-//        model.addAttribute("productDetails", base64Images);  // Send the list of product details to the model
+        session.setAttribute("mainProductName",productRepo);
+        List<SubProducts> subProducts=productRepo.findSubProduct(prodName);
+        System.out.println(subProducts.get(0).getSubTypeName());
+        List<Map<String, String>> base64Images = new ArrayList<>();
+
+        for (SubProducts subProduct : subProducts) {
+            Blob blob = new SerialBlob(subProduct.getProduct().getProdImg());
+            byte[] bytes = blob.getBytes(1, (int) blob.length());
+            String base64Image = Base64.getEncoder().encodeToString(bytes);
+            Map<String, String> prodDetails = new HashMap<>();
+            prodDetails.put("img", base64Image);
+            prodDetails.put("prodName", subProduct.getSubTypeName());
+            prodDetails.put("suburl", "/product/productdescription/" + subProduct.getSubTypeName());
+
+            base64Images.add(prodDetails);
+        }
+
+        model.addAttribute("productDetails", base64Images);  // Send the list of product details to the model
         return "proddetails";  // Thymeleaf template to render
     }
 
