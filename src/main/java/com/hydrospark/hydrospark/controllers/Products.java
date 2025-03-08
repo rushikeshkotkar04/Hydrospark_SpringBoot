@@ -13,6 +13,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -148,7 +150,7 @@ public class Products {
                 + "Required product: " + product + "\n\n"
                 + "Thanks and regards,\n"
                 + userDetails.email;
-        emailService.sendEmail(session,"ar.webappdevs@gmail.com",subject,body);
+        emailService.sendEmail(session,"info@hydrospark.org",subject,body);
         model.addAttribute("error","csmcnnscnskdn");
         String url= "redirect:/product/productdescription/"+subProd;
         return url;

@@ -92,11 +92,13 @@ public class Home {
 
     @GetMapping("/signup")
     public String getRegister(){
+        System.out.println("get Signup");
         return "register.html";
     }
 
     @PostMapping("/signup")
     public String postRegister(HttpServletRequest request, Model model,HttpSession session){
+        System.out.println("Post Signup");
         String email=request.getParameter("Email");
         String password=request.getParameter("Password");
         String firstName=request.getParameter("firstName");

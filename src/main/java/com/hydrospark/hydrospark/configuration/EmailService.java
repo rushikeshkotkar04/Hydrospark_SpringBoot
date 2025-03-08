@@ -10,9 +10,9 @@ import javax.mail.internet.*;
 @Service
 public class EmailService {
     public void sendEmail(HttpSession session,String email,String subject,String body) {
-        String host = "smtp.gmail.com";
-        final String username = "rshksh019@gmail.com"; // your email
-        final String password = "emcd lizv ajgp hgzf";   // your email password
+        String host = "smtpout.secureserver.net";
+        final String username = "info@hydrospark.org"; // your email
+        final String password = "Hydrospark@123";   // your email password
 
         // Recipient's email
         String to = email;
@@ -21,7 +21,7 @@ public class EmailService {
         // Set properties
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);
-        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.port", "465");
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
 
