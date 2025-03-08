@@ -63,6 +63,7 @@ public class Admin {
         System.out.println("Employees: "+employees);
         if(employees.size()>0){
             session.setAttribute("employee",employees.get(0).getEmail());
+            session.removeAttribute("user");
             session.setAttribute("role",employees.get(0).getRole());
             System.out.println("Hereeeeeeeeeeeeeee");
 
@@ -71,7 +72,7 @@ public class Admin {
             session.setAttribute("error","email or password is wrong");
             return "employeeSignin.html";
         }
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 
 

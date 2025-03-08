@@ -228,6 +228,457 @@
 <!--</html>-->
 
 
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>HydroSpark - Register</title>-->
+
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+<!--    <style>-->
+<!--        /* General body styling */-->
+<!--        body {-->
+<!--            background-color: #f3e6e6;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            font-size: 0.9rem;  /* Make the font a bit smaller */-->
+<!--        }-->
+
+<!--        /* Hero Section with Image */-->
+<!--        .hero {-->
+<!--            position: relative;-->
+<!--            width: 100%;-->
+<!--            height: 100vh;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        .hero img {-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            object-fit: cover;-->
+<!--            position: absolute;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--        }-->
+
+<!--        .hero-overlay {-->
+<!--            background: rgba(0, 0, 0, 0.6);-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            padding: 10px;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .form-container {-->
+<!--            background-color: #ffffff;-->
+<!--            padding: 30px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 100%;-->
+<!--            max-width: 360px;  /* Reduced max-width to make form more compact */-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .form-container h4 {-->
+<!--            margin-bottom: 15px;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .form-container label {-->
+<!--            color: #555;-->
+<!--        }-->
+
+<!--        .form-container input {-->
+<!--            background-color: #f7f7f7;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 10px;-->
+<!--            width: 100%;-->
+<!--            margin-bottom: 15px;-->
+<!--            font-size: 0.9rem; /* Reduced font size */-->
+<!--        }-->
+
+<!--        .form-container input:focus {-->
+<!--            border-color: #ff9200;-->
+<!--            box-shadow: 0 0 5px rgba(255, 146, 0, 0.8);-->
+<!--        }-->
+
+<!--        .form-container button {-->
+<!--            background-color: #ff9200;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            padding: 10px 25px;  /* Adjusted padding */-->
+<!--            font-size: 1rem;-->
+<!--            font-weight: bold;-->
+<!--            width: 100%;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease-in-out;-->
+<!--        }-->
+
+<!--        .form-container button:hover {-->
+<!--            background-color: #e68200;-->
+<!--        }-->
+
+<!--        .form-container p {-->
+<!--            color: #666;-->
+<!--            font-size: 0.85rem;  /* Slightly smaller font size */-->
+<!--        }-->
+
+<!--        .form-container a {-->
+<!--            color: #ff9200;-->
+<!--            text-decoration: none;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .form-container a:hover {-->
+<!--            text-decoration: underline;-->
+<!--        }-->
+
+<!--        .password-rules {-->
+<!--            font-size: 0.8rem;-->
+<!--            color: #555;-->
+<!--            margin-top: 10px;-->
+<!--            text-align: left;-->
+<!--        }-->
+
+<!--        .password-rules ul {-->
+<!--            padding-left: 20px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--&lt;!&ndash; Wrapper to make sure content takes full height &ndash;&gt;-->
+<!--<div class="content-wrapper">-->
+
+<!--    &lt;!&ndash; Navbar &ndash;&gt;-->
+<!--    <header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">-->
+<!--        <div class="container">-->
+<!--            <a class="navbar-brand fw-bold text-warning" href="#" th:href="@{/}">HydroSpark</a>-->
+<!--            <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--                <span class="navbar-toggler-icon"></span>-->
+<!--            </a>-->
+
+
+<!--        </div>-->
+<!--    </header>-->
+
+<!--    &lt;!&ndash; Hero Section &ndash;&gt;-->
+<!--    <section class="hero">-->
+<!--        <div class="hero-overlay">-->
+<!--            &lt;!&ndash; Registration Form &ndash;&gt;-->
+<!--            <div class="form-container">-->
+<!--                <form method="post" th:action="@{/signup}">-->
+<!--                    <h4 class="text-dark">Register</h4>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="Email" class="text-dark">Email address</label>-->
+<!--                        <input type="email" class="form-control" id="Email" name="Email" required />-->
+<!--                    </div>-->
+
+<!--                    <div class="form-group">-->
+<!--                        <label for="Password" class="text-dark">Password</label>-->
+<!--                        <input type="password" class="form-control" id="Password" name="Password" required />-->
+<!--                    </div>-->
+
+<!--                    <button type="submit">Register</button>-->
+
+<!--                    <p>If already registered? <a href="/signin">Sign in</a></p>-->
+
+<!--                    <div th:if="${error}" style="color: red;">-->
+<!--                        <p th:text="${error}"></p>-->
+<!--                    </div>-->
+<!--                    &lt;!&ndash; Password Rules &ndash;&gt;-->
+<!--                    <div class="password-rules">-->
+<!--                        <p><strong>Password Rules:</strong></p>-->
+<!--                        <ul>-->
+<!--                            <li>At least 8 characters long</li>-->
+<!--                            <li>Includes both uppercase and lowercase letters</li>-->
+<!--                            <li>Contains at least one special character</li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                </form>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
+
+<!--    &lt;!&ndash; Footer &ndash;&gt;-->
+<!--    <footer>-->
+<!--        <p>&copy; 2025 HydroSpark. All rights reserved.</p>-->
+<!--        <p><a href="https://hydrospark.com" th:href="@{https://hydrospark.com}">Visit our website</a></p>-->
+<!--    </footer>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Bootstrap JS and dependencies &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>-->
+
+<!--</body>-->
+<!--</html>-->
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>HydroSpark - Register</title>-->
+
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+<!--    <style>-->
+<!--        /* General body styling */-->
+<!--        body {-->
+<!--            background-color: #f3e6e6;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            font-size: 0.9rem;  /* Make the font a bit smaller */-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            min-height: 100vh;-->
+<!--        }-->
+
+<!--        /* Header styling */-->
+<!--        header {-->
+<!--            position: fixed;-->
+<!--            top: 0;-->
+<!--            width: 100%;-->
+<!--            z-index: 1000;-->
+<!--        }-->
+
+<!--        /* Main content styling */-->
+<!--        main {-->
+<!--            flex: 1;-->
+<!--            display: flex;-->
+<!--            justify-content: center;-->
+<!--            align-items: center;-->
+<!--            padding-top: 80px;  /* Adjust based on header height */-->
+<!--            padding-bottom: 60px;  /* Adjust based on footer height */-->
+<!--        }-->
+
+<!--        .form-container {-->
+<!--            background-color: #ffffff;-->
+<!--            padding: 30px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 100%;-->
+<!--            max-width: 600px;  /* Increased max-width to accommodate two columns */-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .form-container h4 {-->
+<!--            margin-bottom: 15px;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .form-container label {-->
+<!--            color: #555;-->
+<!--        }-->
+
+<!--        .form-container input {-->
+<!--            background-color: #f7f7f7;-->
+<!--            border: 1px solid #ddd;-->
+<!--            border-radius: 5px;-->
+<!--            padding: 10px;-->
+<!--            width: 100%;-->
+<!--            margin-bottom: 15px;-->
+<!--            font-size: 0.9rem; /* Reduced font size */-->
+<!--        }-->
+
+<!--        .form-container input:focus {-->
+<!--            border-color: #ff9200;-->
+<!--            box-shadow: 0 0 5px rgba(255, 146, 0, 0.8);-->
+<!--        }-->
+
+<!--        .form-container button {-->
+<!--            background-color: #ff9200;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            padding: 10px 25px;  /* Adjusted padding */-->
+<!--            font-size: 1rem;-->
+<!--            font-weight: bold;-->
+<!--            width: 100%;-->
+<!--            border-radius: 5px;-->
+<!--            cursor: pointer;-->
+<!--            transition: all 0.3s ease-in-out;-->
+<!--        }-->
+
+<!--        .form-container button:hover {-->
+<!--            background-color: #e68200;-->
+<!--        }-->
+
+<!--        .form-container p {-->
+<!--            color: #666;-->
+<!--            font-size: 0.85rem;  /* Slightly smaller font size */-->
+<!--        }-->
+
+<!--        .form-container a {-->
+<!--            color: #ff9200;-->
+<!--            text-decoration: none;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+
+<!--        .form-container a:hover {-->
+<!--            text-decoration: underline;-->
+<!--        }-->
+
+<!--        .password-rules {-->
+<!--            font-size: 0.8rem;-->
+<!--            color: #555;-->
+<!--            margin-top: 10px;-->
+<!--            text-align: left;-->
+<!--        }-->
+
+<!--        .password-rules ul {-->
+<!--            padding-left: 20px;-->
+<!--        }-->
+
+<!--        /* Footer Styling */-->
+<!--        footer {-->
+<!--            text-align: center;-->
+<!--            padding: 10px 0;-->
+<!--            background-color: #ffffff;-->
+<!--            width: 100%;-->
+<!--            position: fixed;-->
+<!--            bottom: 0;-->
+<!--            z-index: 1000;-->
+<!--        }-->
+
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--&lt;!&ndash; Header &ndash;&gt;-->
+<!--<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand fw-bold text-warning" href="#" th:href="@{/}">HydroSpark</a>-->
+
+<!--        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </a>-->
+
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav mx-auto">-->
+<!--                <li class="nav-item"><a class="nav-link active" href="#" th:href="@{/}">Home</a></li>-->
+<!--                &lt;!&ndash; <li class="nav-item"><a class="nav-link" href="#" th:href="@{/shop}">Shop</a></li> &ndash;&gt;-->
+<!--            </ul>-->
+<!--            <form class="d-flex me-3" th:action="@{/search}" method="get">-->
+<!--                <input class="form-control form-control-dark search-input" type="search" placeholder="Search..."-->
+<!--                       aria-label="Search" name="query" required>-->
+<!--                &lt;!&ndash; Search Button with Icon &ndash;&gt;-->
+<!--                <button class="btn btn-outline-light ms-2" type="submit">-->
+<!--                    <i class="bi bi-search"></i> &lt;!&ndash; Bootstrap Icon for Search &ndash;&gt;-->
+<!--                </button>-->
+<!--            </form>-->
+
+<!--            <div>-->
+<!--                <a class="btn btn-warning" th:href="@{/signup}">Signup</a>-->
+<!--                &lt;!&ndash; <a class="btn btn-warning" th:href="@{/admin}">Admin</a> &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--&lt;!&ndash; Main Content &ndash;&gt;-->
+<!--<main>-->
+<!--    <div class="form-container">-->
+<!--        <form method="post" th:action="@{/signup}">-->
+<!--            <h4 class="text-dark">Register</h4>-->
+
+<!--            &lt;!&ndash; First and Last Name on the same row &ndash;&gt;-->
+<!--            <div class="row mb-3">-->
+<!--                <div class="col-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="firstName" class="text-dark">First Name</label>-->
+<!--                        <input type="text" class="form-control" id="firstName" name="firstName" required />-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="lastName" class="text-dark">Last Name</label>-->
+<!--                        <input type="text" class="form-control" id="lastName" name="lastName" required />-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Phone Number and Email on the same row &ndash;&gt;-->
+<!--            <div class="row mb-3">-->
+<!--                <div class="col-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="number" class="text-dark">Phone Number</label>-->
+<!--                        <input type="tel" class="form-control" id="number" name="number" required />-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="Email" class="text-dark">Email address</label>-->
+<!--                        <input type="email" class="form-control" id="Email" name="Email" required />-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            &lt;!&ndash; Password and Confirm Password on the same row &ndash;&gt;-->
+<!--            <div class="row mb-3">-->
+<!--                <div class="col-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="Password" class="text-dark">Password</label>-->
+<!--                        <input type="password" class="form-control" id="Password" name="Password" required />-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-6">-->
+<!--                    <div class="form-group">-->
+<!--                        <label for="confirmPassword" class="text-dark">Confirm Password</label>-->
+<!--                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <button type="submit">Register</button>-->
+
+<!--            <p>If already registered? <a href="/signin">Sign in</a></p>-->
+
+<!--            <div th:if="${error}" style="color: red;">-->
+<!--                <p th:text="${error}"></p>-->
+<!--            </div>-->
+<!--            &lt;!&ndash; Password Rules &ndash;&gt;-->
+<!--            <div class="password-rules">-->
+<!--                <p><strong>Password Rules:</strong></p>-->
+<!--                <ul>-->
+<!--                    <li>At least 8 characters long</li>-->
+<!--                    <li>Includes both uppercase and lowercase letters</li>-->
+<!--                    <li>Contains at least one special character</li>-->
+<!--                </ul>-->
+<!--            </div>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</main>-->
+
+<!--&lt;!&ndash; Footer &ndash;&gt;-->
+<!--<footer>-->
+<!--    <p>&copy; 2025 HydroSpark. All rights reserved.</p>-->
+<!--    <p><a href="https://hydrospark.com" th:href="@{https://hydrospark.com}">Visit our website</a></p>-->
+<!--</footer>-->
+
+<!--&lt;!&ndash; Bootstrap JS and dependencies &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>-->
+
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
@@ -246,47 +697,36 @@
             margin: 0;
             padding: 0;
             font-size: 0.9rem;  /* Make the font a bit smaller */
-        }
-
-        /* Hero Section with Image */
-        .hero {
-            position: relative;
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-        }
-
-        .hero img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        .hero-overlay {
-            background: rgba(0, 0, 0, 0.6);
-            width: 100%;
-            height: 100%;
             display: flex;
             flex-direction: column;
-            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Header styling */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* Main content styling */
+        main {
+            flex: 1;
+            display: flex;
             justify-content: center;
-            padding: 10px;
-            text-align: center;
+            align-items: center;
+            padding-top: 80px;  /* Adjust based on header height */
+            padding-bottom: 60px;  /* Adjust based on footer height */
         }
 
         .form-container {
             background-color: #ffffff;
-            padding: 30px;
+            padding: 20px;  /* Reduced padding */
             border-radius: 8px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 360px;  /* Reduced max-width to make form more compact */
+            max-width: 450px;  /* Reduced max-width to make the form smaller */
             text-align: center;
         }
 
@@ -303,9 +743,9 @@
             background-color: #f7f7f7;
             border: 1px solid #ddd;
             border-radius: 5px;
-            padding: 10px;
+            padding: 8px;  /* Reduced padding */
             width: 100%;
-            margin-bottom: 15px;
+            margin-bottom: 12px;  /* Reduced margin */
             font-size: 0.9rem; /* Reduced font size */
         }
 
@@ -318,8 +758,8 @@
             background-color: #ff9200;
             color: white;
             border: none;
-            padding: 10px 25px;  /* Adjusted padding */
-            font-size: 1rem;
+            padding: 8px 20px;  /* Reduced padding */
+            font-size: 0.9rem;  /* Reduced font size */
             font-weight: bold;
             width: 100%;
             border-radius: 5px;
@@ -356,71 +796,133 @@
         .password-rules ul {
             padding-left: 20px;
         }
+
+        /* Footer Styling */
+        footer {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #ffffff;
+            width: 100%;
+            position: fixed;
+            bottom: 0;
+            z-index: 1000;
+        }
+
     </style>
 </head>
 
 <body>
 
-<!-- Wrapper to make sure content takes full height -->
-<div class="content-wrapper">
+<!-- Header -->
+<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-warning" href="#" th:href="@{/}">HydroSpark</a>
 
-    <!-- Navbar -->
-    <header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
-        <div class="container">
-            <a class="navbar-brand fw-bold text-warning" href="#" th:href="@{/}">HydroSpark</a>
-            <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </a>
+        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </a>
 
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link active" href="#" th:href="@{/}">Home</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" href="#" th:href="@{/shop}">Shop</a></li> -->
+            </ul>
+            <form class="d-flex me-3" th:action="@{/search}" method="get">
+                <input class="form-control form-control-dark search-input" type="search" placeholder="Search..."
+                       aria-label="Search" name="query" required>
+                <!-- Search Button with Icon -->
+                <button class="btn btn-outline-light ms-2" type="submit">
+                    <i class="bi bi-search"></i> <!-- Bootstrap Icon for Search -->
+                </button>
+            </form>
 
+            <div>
+                <a class="btn btn-warning" th:href="@{/signup}">Signup</a>
+                <!-- <a class="btn btn-warning" th:href="@{/admin}">Admin</a> -->
+            </div>
         </div>
-    </header>
+    </div>
+</header>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-overlay">
-            <!-- Registration Form -->
-            <div class="form-container">
-                <form method="post" th:action="@{/signup}">
-                    <h4 class="text-dark">Register</h4>
+<!-- Main Content -->
+<main>
+    <div class="form-container">
+        <form method="post" th:action="@{/signup}">
+            <h4 class="text-dark">Register</h4>
 
+            <!-- First and Last Name on the same row -->
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="firstName" class="text-dark">First Name</label>
+                        <input type="text" class="form-control" id="firstName" name="firstName" required />
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="lastName" class="text-dark">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" name="lastName" required />
+                    </div>
+                </div>
+            </div>
+
+            <!-- Phone Number and Email on the same row -->
+            <div class="row mb-3">
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="number" class="text-dark">Phone Number</label>
+                        <input type="tel" class="form-control" id="number" name="number" required />
+                    </div>
+                </div>
+                <div class="col-6">
                     <div class="form-group">
                         <label for="Email" class="text-dark">Email address</label>
                         <input type="email" class="form-control" id="Email" name="Email" required />
                     </div>
+                </div>
+            </div>
 
+            <!-- Password and Confirm Password on the same row -->
+            <div class="row mb-3">
+                <div class="col-6">
                     <div class="form-group">
                         <label for="Password" class="text-dark">Password</label>
                         <input type="password" class="form-control" id="Password" name="Password" required />
                     </div>
-
-                    <button type="submit">Register</button>
-
-                    <p>If already registered? <a href="/signin">Sign in</a></p>
-
-                    <div th:if="${error}" style="color: red;">
-                        <p th:text="${error}"></p>
+                </div>
+                <div class="col-6">
+                    <div class="form-group">
+                        <label for="confirmPassword" class="text-dark">Confirm Password</label>
+                        <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required />
                     </div>
-                    <!-- Password Rules -->
-                    <div class="password-rules">
-                        <p><strong>Password Rules:</strong></p>
-                        <ul>
-                            <li>At least 8 characters long</li>
-                            <li>Includes both uppercase and lowercase letters</li>
-                            <li>Contains at least one special character</li>
-                        </ul>
-                    </div>
-                </form>
+                </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Footer -->
-    <footer>
-        <p>&copy; 2025 HydroSpark. All rights reserved.</p>
-        <p><a href="https://hydrospark.com" th:href="@{https://hydrospark.com}">Visit our website</a></p>
-    </footer>
-</div>
+            <button type="submit">Register</button>
+
+            <p>If already registered? <a href="/signin">Sign in</a></p>
+
+            <div th:if="${error}" style="color: red;">
+                <p th:text="${error}"></p>
+            </div>
+            <!-- Password Rules -->
+            <div class="password-rules">
+                <p><strong>Password Rules:</strong></p>
+                <ul>
+                    <li>At least 8 characters long</li>
+                    <li>Includes both uppercase and lowercase letters</li>
+                    <li>Contains at least one special character</li>
+                </ul>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2025 HydroSpark. All rights reserved.</p>
+    <p><a href="https://hydrospark.com" th:href="@{https://hydrospark.com}">Visit our website</a></p>
+</footer>
 
 <!-- Bootstrap JS and dependencies -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>

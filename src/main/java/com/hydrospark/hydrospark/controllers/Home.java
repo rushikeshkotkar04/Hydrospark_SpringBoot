@@ -81,6 +81,7 @@ public class Home {
         List<User> user=userRepo.findAllByEmailAndPassword(email,password);
         if(user.size()==1){
             session.setAttribute("user",email);
+            session.removeAttribute("employee");
             return redirectURL;
         }
         else{
@@ -186,7 +187,13 @@ public class Home {
 
     @GetMapping("/profile")
     @ResponseBody
-    public String Userprofile(){
+    public String Userprofile(HttpSession session){
+        String user=(String) session.getAttribute("user");
+        String employee= (String) session.getAttribute("employee");
+        if(user!=null){
+            userRepo.findByEmail(user);
+
+        }
         return "User Profile";
     }
     @GetMapping("/error")
