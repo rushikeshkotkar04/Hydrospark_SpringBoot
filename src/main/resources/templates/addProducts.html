@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HydroSpark - Add Product</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <style>
+    /* General body styling */
+    body {
+        background-color: #f3e6e6;
+        margin: 0;
+        padding: 0;
+        font-size: 0.9rem;
+        min-height: 100vh;  /* Ensures the page is at least 100vh tall */
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Hero Section with Image */
+    .hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        margin-top: 80px; /* Added margin top to push down the form */
+    }
+
+    .hero img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+    .hero-overlay {
+        background: rgba(0, 0, 0, 0.6);
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .form-container {
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 480px;  /* Increased max-width for a better form width */
+        text-align: center;
+        margin-top: 20px;  /* Space above the form */
+    }
+
+    .form-container h4 {
+        margin-bottom: 15px;
+        color: #333;
+    }
+
+    .form-container label {
+        color: #555;
+    }
+
+    .form-container input, .form-container textarea {
+        background-color: #f7f7f7;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 10px;
+        width: 100%;
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+    }
+
+    .form-container input:focus, .form-container textarea:focus {
+        border-color: #ff9200;
+        box-shadow: 0 0 5px rgba(255, 146, 0, 0.8);
+    }
+
+    .form-container button {
+        background-color: #ff9200;
+        color: white;
+        border: none;
+        padding: 10px 25px;
+        font-size: 1rem;
+        font-weight: bold;
+        width: 100%;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .form-container button:hover {
+        background-color: #e68200;
+    }
+
+    .form-container p {
+        color: #666;
+        font-size: 0.85rem;
+    }
+
+    .form-container a {
+        color: #ff9200;
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .form-container a:hover {
+        text-decoration: underline;
+    }
+
+    .password-rules {
+        font-size: 0.8rem;
+        color: #555;
+        margin-top: 10px;
+        text-align: left;
+    }
+
+    .password-rules ul {
+        padding-left: 20px;
+    }
+
+    /* Navbar Styling */
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000;
+    }
+
+    /* Add spacing for the fixed navbar */
+    .content-wrapper {
+        padding-top: 80px; /* Add padding to the top of the page to compensate for fixed navbar */
+    }
+
+    /* Footer Styling */
+    footer {
+        text-align: center;
+        padding: 20px;
+        background-color: #333;
+        color: white;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- Wrapper to make sure content takes full height -->
+<div class="content-wrapper">
+
+  <!-- Navbar -->
+<!--  <header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">-->
+<!--    <div class="container">-->
+<!--      <a class="navbar-brand fw-bold text-warning" href="#">HydroSpark</a>-->
+<!--      <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--        <span class="navbar-toggler-icon"></span>-->
+<!--      </a>-->
+
+<!--      <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--        <ul class="navbar-nav mx-auto">-->
+
+<!--        </ul>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </header>-->
+  <header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+      <a class="navbar-brand fw-bold text-warning" href="#">HydroSpark</a>
+      <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </a>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto">
+          <!-- Your navigation links go here -->
+        </ul>
+      </div>
+
+      <div>
+        <!-- Check if the user is logged in -->
+        <div th:if="${session.employee}">
+          <!-- If user is logged in, show Logout and Profile buttons -->
+          <a class="btn btn-outline-light me-2" th:href="@{/admin/profile}">Profile</a>
+          <a class="btn btn-warning" th:href="@{/admin/logout}">Logout</a>
+        </div>
+        <div th:unless="${session.employee}">
+          <!-- If user is not logged in, show Login and Signup buttons -->
+          <a class="btn btn-warning" th:href="@{/signin}">Login</a>
+          <a class="btn btn-warning" th:href="@{/signup}">Signup</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+
+    <div class="hero-overlay">
+      <!-- Add Product Form -->
+      <div class="form-container">
+        <h4 class="text-dark">Add Product</h4>
+
+        <form method="post" th:action="@{/admin/addProduct}"  enctype="multipart/form-data">
+          <div class="form-group row">
+            <div class="col-md-6">
+              <label for="ProductName" class="text-dark">Product Name</label>
+              <input type="text" class="form-control" id="ProductName" name="ProductName" required />
+            </div>
+            <div class="col-md-6">
+              <label for="Subtype" class="text-dark">Subtype</label>
+              <input type="text" class="form-control" id="Subtype" name="Category" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="price" class="text-dark">Price</label>
+            <input type="number" class="form-control" id="price" name="price" required/>
+          </div>
+          <div class="form-group">
+            <label for="Description" class="text-dark">Description</label>
+            <textarea class="form-control" id="Description" name="Description" rows="3" required></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="ProductImage" class="text-dark">Upload Image</label>
+            <input type="file" class="form-control" id="ProductImage" name="ProductImage" accept="image/*" required />
+          </div>
+
+          <button type="submit">Add Product</button>
+        </form>
+
+
+
+        <div th:if="${error}" style="color: red;">
+          <p th:text="${error}"></p>
+        </div>
+
+
+      </div>
+    </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2025 HydroSpark. All rights reserved.</p>
+    <p><a href="https://hydrospark.com">Visit our website</a></p>
+  </footer>
+
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

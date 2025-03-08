@@ -1,0 +1,69 @@
+<!-- src/main/resources/templates/fragments/header.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroSpark</title>
+    <!-- CSS for header inside header.html -->
+    <style>
+        /* CSS for the header */
+        header.navbar {
+            background-color: #343a40;
+            padding: 1rem;
+        }
+
+        header .navbar-brand {
+            font-weight: bold;
+            color: #ff9200;
+        }
+
+        header .nav-link {
+            color: white;
+        }
+
+        header .nav-link:hover {
+            color: #ff9200;
+        }
+
+        /* Additional styling for search bar and button */
+        .search-input {
+            width: 250px;
+        }
+
+        .navbar .btn {
+            font-size: 1.1rem;
+        }
+    </style>
+</head>
+<body>
+<!-- Define the navbar as a Thymeleaf fragment -->
+<div th:fragment="navbar">
+    <!-- Navbar -->
+    <header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-warning" href="#" th:href="@{/}">HydroSpark</a>
+            <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="#" th:href="@{/}">Home</a></li>
+<!--                    <li class="nav-item"><a class="nav-link" href="#" th:href="@{/shopshop}">Shop</a></li>-->
+                </ul>
+                <form class="d-flex me-3" th:action="@{/search}" method="get">
+                    <input class="form-control form-control-dark search-input" type="search" placeholder="Search..." aria-label="Search" name="query">
+                    <a class="btn btn-outline-warning ms-2" type="submit">🔍</a>
+                </form>
+                <div>
+                    <a class="btn btn-outline-light me-2" th:href="@{/cart}">🛒 Cart</a>
+                    <a class="btn btn-warning" th:href="@{/signin}">Login</a>
+                    <a class="btn btn-warning" th:href="@{/signup}">Signup</a>
+                    <a class="btn btn-warning" th:href="@{/admin/}">Admin</a>
+                </div>
+            </div>
+        </div>
+    </header>
+</div>
+</body>
+</html>

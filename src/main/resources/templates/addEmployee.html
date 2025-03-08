@@ -1,0 +1,335 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">-->
+
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>HydroSpark - Register</title>-->
+
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+<!--    <style>-->
+<!--        body {-->
+<!--            background-color: #f3e6e6;-->
+<!--            margin: 0;-->
+<!--            padding: 0;-->
+<!--            font-size: 0.9rem;-->
+<!--        }-->
+
+<!--        header {-->
+<!--            position: fixed;-->
+<!--            width: 100%;-->
+<!--            top: 0;-->
+<!--            left: 0;-->
+<!--            z-index: 1000;-->
+<!--        }-->
+
+<!--        .hero {-->
+<!--            position: relative;-->
+<!--            width: 100%;-->
+<!--            min-height: 100vh;-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            color: white;-->
+<!--            padding-top: 70px;-->
+<!--        }-->
+
+<!--        .hero-overlay {-->
+<!--            background: rgba(0, 0, 0, 0.5);-->
+<!--            width: 100%;-->
+<!--            height: 100%;-->
+<!--            display: flex;-->
+<!--            flex-direction: column;-->
+<!--            align-items: center;-->
+<!--            justify-content: center;-->
+<!--            padding: 10px;-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        .form-container {-->
+<!--            background-color: #ffffff;-->
+<!--            padding: 30px;-->
+<!--            border-radius: 8px;-->
+<!--            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);-->
+<!--            width: 100%;-->
+<!--            max-width: 600px;-->
+<!--            margin-top: 20px;-->
+<!--            margin-left: auto;-->
+<!--            margin-right: auto;-->
+<!--        }-->
+
+<!--        .form-container h4 {-->
+<!--            margin-bottom: 15px;-->
+<!--            color: #333;-->
+<!--        }-->
+
+<!--        .form-container button {-->
+<!--            background-color: #ff9200;-->
+<!--            color: white;-->
+<!--            border: none;-->
+<!--            padding: 10px 25px;-->
+<!--            width: 100%;-->
+<!--            font-weight: bold;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+
+<!--<body>-->
+
+<!--<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand fw-bold text-warning" href="#">HydroSpark</a>-->
+<!--        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </a>-->
+
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav mx-auto">-->
+<!--                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" href="#">Shop</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--<div class="hero-overlay">-->
+<!--    <div class="form-container">-->
+<!--        <form method="post" th:action="@{/admin/addEmployee}">-->
+<!--            <h4 class="text-dark">Register</h4>-->
+
+<!--            <div class="form-row">-->
+<!--                <div class="form-group">-->
+<!--                    <label for="firstName" class="text-dark">First Name</label>-->
+<!--                    <input type="text" class="form-control" id="firstName" name="firstName" required />-->
+<!--                </div>-->
+<!--                <div class="form-group">-->
+<!--                    <label for="lastName" class="text-dark">Last Name</label>-->
+<!--                    <input type="text" class="form-control" id="lastName" name="lastName" required />-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <div class="form-group">-->
+<!--                <label class="text-dark">Employee Role</label><br />-->
+<!--                &lt;!&ndash; Checkboxes for each role &ndash;&gt;-->
+<!--                <div>-->
+<!--                    <input type="checkbox" id="employee" th:name="(employeeRoles)" value="employee" />-->
+<!--                    <label for="employee" class="text-dark">Employee</label>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <input type="checkbox" id="admin" th:name="(employeeRoles)" value="admin" />-->
+<!--                    <label for="admin" class="text-dark">Admin</label>-->
+<!--                </div>-->
+<!--                <div>-->
+<!--                    <input type="checkbox" id="manager" th:name="(employeeRoles)" value="manager" />-->
+<!--                    <label for="manager" class="text-dark">Manager</label>-->
+<!--                </div>-->
+<!--            </div>-->
+
+<!--            <button type="submit">Register Employee</button>-->
+<!--        </form>-->
+<!--    </div>-->
+<!--</div>-->
+
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HydroSpark - Register</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background-color: #f3e6e6;
+            margin: 0;
+            padding: 0;
+            font-size: 0.9rem;
+        }
+
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .hero {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            padding-top: 70px;
+        }
+
+        .hero-overlay {
+            background: rgba(0, 0, 0, 0.5);
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-container h4 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .form-container button {
+            background-color: #ff9200;
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            width: 100%;
+            font-weight: bold;
+        }
+
+        /* Styling radio buttons */
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .radio-container {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .radio-container input[type="radio"] {
+            display: none;
+        }
+
+        .radio-container label {
+            position: relative;
+            padding-left: 30px;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-container label:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #ddd;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .radio-container input[type="radio"]:checked + label:before {
+            background-color: #ff9200;
+            border-color: #ff9200;
+        }
+
+        .radio-container input[type="radio"]:checked + label {
+            color: #ff9200;
+            font-weight: bold;
+        }
+
+        .radio-container label:hover:before {
+            background-color: #ff9200;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-warning" href="#">HydroSpark</a>
+        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </a>
+
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav mx-auto">-->
+<!--                <li class="nav-item"><a class="nav-link active" href="#">Home</a></li>-->
+<!--                <li class="nav-item"><a class="nav-link" th:href="/">Shop</a></li>-->
+<!--            </ul>-->
+<!--        </div>-->
+    </div>
+</header>
+
+<div class="hero-overlay">
+    <div class="form-container">
+        <form method="post" th:action="@{/admin/addEmployee}">
+            <h4 class="text-dark">Register</h4>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName" class="text-dark">First Name</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" required />
+                </div>
+                <div class="form-group">
+                    <label for="lastName" class="text-dark">Last Name</label>
+                    <input type="text" class="form-control" id="lastName" name="lastName" required />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="text-dark">Employee Role</label>
+                <div class="radio-container">
+                    <!-- Radio buttons for each role -->
+                    <div>
+                        <input type="radio" id="employee" th:name="(employeeRoles)" value="employee" required />
+                        <label for="employee">Employee</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="admin" th:name="(employeeRoles)" value="admin" required />
+                        <label for="admin">Admin</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="manager" th:name="(employeeRoles)" value="manager" required />
+                        <label for="manager">Manager</label>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit">Register Employee</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+
