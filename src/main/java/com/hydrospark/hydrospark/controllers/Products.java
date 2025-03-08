@@ -66,7 +66,7 @@ public class Products {
 //        }
 //
 //        model.addAttribute("productDetails", base64Images);  // Send the list of product details to the model
-        return "productdetails";  // Thymeleaf template to render
+        return "proddetails";  // Thymeleaf template to render
     }
 
     @GetMapping("productdescription/{subtype}")
