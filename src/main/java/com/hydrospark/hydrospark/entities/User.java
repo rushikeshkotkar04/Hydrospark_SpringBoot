@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
+import java.util.Date;
+
 @Entity
 public class User {
 
@@ -21,6 +23,10 @@ public class User {
     public String password;
 
     public long number;
+
+    public boolean visitedProduct;
+    public Date dateOfProductVisit;
+    public boolean contacted;
 
     public User() {
     }

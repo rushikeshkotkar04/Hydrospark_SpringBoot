@@ -99,9 +99,14 @@ public class Home {
     public String postRegister(HttpServletRequest request, Model model,HttpSession session){
         String email=request.getParameter("Email");
         String password=request.getParameter("Password");
+        String firstName=request.getParameter("firstName");
+        String lastName=request.getParameter("lastName");
+        String confirmPassword=request.getParameter("confirmPassword");
+        long number= Long.parseLong(request.getParameter("number"));
         List<User> user=userRepo.findByEmail(email);
         if(user.size()>0){
             model.addAttribute("error","User Already Present");
+            return "register.html";
         }
         else{
             /*
@@ -112,14 +117,18 @@ public class Home {
                 At least one digit.
                 At least one special character.
              */
-            String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])[A-Za-z\\d@#$%^&+=!]{8,16}$";
+            String passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@#$%^&+=!])[A-Za-z\\d@#$%^&+=!]{8,}$";
+//            String passwordPattern ="^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*(),.?\":{}|<>]).{8,}$";
             Pattern pattern = Pattern.compile(passwordPattern);
             Matcher matcher = pattern.matcher(password);
+            if(!password.equals(confirmPassword)){
+                model.addAttribute("error","password and confirmPassword does not matching");
+                return "redirect:/signup/";
+            }
 
-            if (matcher.matches()){
-                User newUser=new User();
-                newUser.email=email;
-                newUser.password=password;
+           if (matcher.matches()){
+               System.out.println("Hereeeeeee");
+                User newUser=new User(firstName,lastName,email,password,number);
                 Random random = new Random();
                 // Generate a random 4-digit OTP
                 String otp = 1000 + random.nextInt(9000)+"";
@@ -135,13 +144,13 @@ public class Home {
                 return "redirect:/validate";
             }
             else{
-                model.addAttribute("error","Password is not as expected");
+                model.addAttribute("error","Password is nt as expected");
                 return "register.html";
             }
 
 
         }
-        return "redirect:/";
+//        return "redirect:/";
     }
 
     @GetMapping("/validate")
@@ -186,15 +195,22 @@ public class Home {
     }
 
     @GetMapping("/profile")
-    @ResponseBody
-    public String Userprofile(HttpSession session){
+    public String Userprofile(HttpSession session,Model model){
         String user=(String) session.getAttribute("user");
-        String employee= (String) session.getAttribute("employee");
+        if(session.getAttribute("user")==null){
+            return "redirect:/";
+        }
         if(user!=null){
-            userRepo.findByEmail(user);
+            User userProfile=userRepo.findByEmail(user).get(0);
+            System.out.printf(userProfile.email);
+            model.addAttribute("firstName",userProfile.firstName);
+            model.addAttribute("lastName",userProfile.lastName);
+            model.addAttribute("email",userProfile.email);
+            model.addAttribute("password",userProfile.password);
+            model.addAttribute("phoneNumber",userProfile.number);
 
         }
-        return "User Profile";
+        return "profile.html";
     }
     @GetMapping("/error")
     public String error(){

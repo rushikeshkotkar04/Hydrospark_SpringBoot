@@ -1,0 +1,200 @@
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <meta name="viewport" content="width=device-width, initial-scale=1.0">-->
+<!--    <title>Profile - HydroSpark</title>-->
+
+<!--    &lt;!&ndash; Bootstrap CSS &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">-->
+
+<!--    &lt;!&ndash; Bootstrap Icons &ndash;&gt;-->
+<!--    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">-->
+
+<!--    <style>-->
+<!--        /* Custom styling */-->
+<!--        .profile-container {-->
+<!--            max-width: 600px;-->
+<!--            margin: 0 auto;-->
+<!--            padding: 30px;-->
+<!--            background-color: #f9f9f9;-->
+<!--            border-radius: 10px;-->
+<!--            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        .navbar {-->
+<!--            margin-bottom: 20px;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--&lt;!&ndash; Header with Home and Search only &ndash;&gt;-->
+<!--<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">-->
+<!--    <div class="container">-->
+<!--        <a class="navbar-brand fw-bold text-warning" href="#" th:href="@{/}">HydroSpark</a>-->
+
+<!--        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </a>-->
+
+<!--        <div class="collapse navbar-collapse" id="navbarNav">-->
+<!--            <ul class="navbar-nav mx-auto">-->
+<!--                <li class="nav-item"><a class="nav-link active" href="#" th:href="@{/}">Home</a></li>-->
+<!--            </ul>-->
+<!--            <form class="d-flex me-3" th:action="@{/search}" method="get">-->
+<!--                <input class="form-control form-control-dark search-input" type="search" placeholder="Search..."-->
+<!--                       aria-label="Search" name="query" required>-->
+<!--                &lt;!&ndash; Search Button with Icon &ndash;&gt;-->
+<!--                <button class="btn btn-outline-light ms-2" type="submit">-->
+<!--                    <i class="bi bi-search"></i> &lt;!&ndash; Bootstrap Icon for Search &ndash;&gt;-->
+<!--                </button>-->
+<!--            </form>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--</header>-->
+
+<!--&lt;!&ndash; Profile Container &ndash;&gt;-->
+<!--<div class="profile-container">-->
+<!--    <h3 class="text-center">User Profile</h3>-->
+
+<!--    &lt;!&ndash; Display user profile information &ndash;&gt;-->
+<!--    <form>-->
+<!--        <div class="form-group">-->
+<!--            <label for="firstName">First Name:</label>-->
+<!--            <input type="text" class="form-control" id="firstName" th:value="${firstName}" disabled>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="lastName">Last Name:</label>-->
+<!--            <input type="text" class="form-control" id="lastName" th:value="${lastName}" disabled>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="email">Email Address:</label>-->
+<!--            <input type="email" class="form-control" id="email" th:value="${email}" disabled>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="password">Password:</label>-->
+<!--            <input type="password" class="form-control" id="password" th:value="${password}" disabled>-->
+<!--        </div>-->
+
+<!--        <div class="form-group">-->
+<!--            <label for="phoneNumber">Phone Number:</label>-->
+<!--            <input type="tel" class="form-control" id="phoneNumber" th:value="${phoneNumber}" disabled>-->
+<!--        </div>-->
+<!--    </form>-->
+<!--</div>-->
+
+<!--&lt;!&ndash; Bootstrap JS and dependencies &ndash;&gt;-->
+<!--<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>-->
+<!--<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - HydroSpark</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+    <style>
+        /* Custom styling */
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 30px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Header with Home and Search only -->
+<header class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold text-warning" href="#" th:href="@{/}">HydroSpark</a>
+
+        <a class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </a>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item"><a class="nav-link active" href="#" th:href="@{/}">Home</a></li>
+            </ul>
+            <form class="d-flex me-3" th:action="@{/search}" method="get">
+                <input class="form-control form-control-dark search-input" type="search" placeholder="Search..."
+                       aria-label="Search" name="query" required>
+                <!-- Search Button with Icon -->
+                <button class="btn btn-outline-light ms-2" type="submit">
+                    <i class="bi bi-search"></i> <!-- Bootstrap Icon for Search -->
+                </button>
+            </form>
+        </div>
+    </div>
+</header>
+
+<!-- Profile Container -->
+<div class="profile-container">
+    <h3 class="text-center">Profile</h3>
+
+    <!-- Display user profile information -->
+    <form>
+        <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input type="text" class="form-control" id="firstName" th:value="${firstName}" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input type="text" class="form-control" id="lastName" th:value="${lastName}" disabled>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address:</label>
+            <input type="email" class="form-control" id="email" th:value="${email}" disabled>
+        </div>
+
+        <div class="form-group" th:if="${password != null}">
+            <label for="password">Password:</label>
+            <input type="password" class="form-control" id="password" th:value="${password}" disabled>
+        </div>
+
+        <!-- Conditionally show Phone Number only if present -->
+        <div class="form-group" th:if="${phoneNumber != null}">
+            <label for="phoneNumber">Phone Number:</label>
+            <input type="tel" class="form-control" id="phoneNumber" th:value="${phoneNumber}" disabled>
+        </div>
+
+        <!-- Conditionally show Role only if present -->
+        <div class="form-group" th:if="${role != null}">
+            <label for="role">Role:</label>
+            <input type="text" class="form-control" id="role" th:value="${role}" disabled>
+        </div>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>
+

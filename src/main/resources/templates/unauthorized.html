@@ -18,7 +18,6 @@
         position: relative;
         width: 100%;
         height: 100vh;
-        background-image: url('https://img.freepik.com/free-photo/people-job-corona-virus-pandemic_342744-125.jpg?ga=GA1.1.261583280.1739093506&semt=ais_hybrid');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -96,51 +95,43 @@
         background-color: #0056b3;
     }
 
-    /* Modal styling */
-    .modal-body {
-        text-align: center;
+    /* Error message styling */
+    .error-message {
+        color: red;
+        font-size: 1.25rem;
+        font-weight: bold;
+        margin-bottom: 20px;
+    }
+
+    .error-message i {
+        margin-right: 10px;
     }
   </style>
 </head>
 
 <body>
-<p th:text="${error}">Error message goes here.</p>
 <!-- Hero Section -->
 <section class="hero">
   <div class="hero-overlay">
-    <!-- Display error message if available -->
-    <div th:if="${error != null}">
-      <!-- Modal that shows error message -->
-      <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="errorModalLabel">Error</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <p th:text="${error}">Error message goes here.</p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <script>
-        // Show the modal when error message is present
-        var myModal = new bootstrap.Modal(document.getElementById('errorModal'), {});
-        myModal.show();
-      </script>
+    <!-- Show error message if available -->
+    <div th:if="${error != null}" class="error-message">
+      <i class="bi bi-exclamation-circle-fill"></i> <!-- Error icon -->
+      <span th:text="${error}">Error message goes here.</span>
+    </div>
+
+    <!-- Show default error message if no specific error -->
+    <div th:if="${error == null}" class="error-message">
+      <i class="bi bi-exclamation-circle-fill"></i> <!-- Error icon -->
+      Something went wrong. Please try again.
     </div>
 
     <!-- Normal Access Denied Content -->
-    <div th:if="${error == null}" class="form-container">
+    <div class="form-container">
       <h4 class="text-center text-dark">Access Denied</h4>
       <p class="hero-subtitle text-light">You do not have the required permissions to view this page.</p>
 
       <div class="form-group">
-        <button class="btn btn-primary" th:onclick="'window.location.href=\'/admin/\''">
+        <button class="btn btn-primary" th:onclick="'window.location.href=\'/admin\''">
           Return to Home
         </button>
       </div>

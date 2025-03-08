@@ -17,6 +17,8 @@ public interface EmployeeRepo extends JpaRepository<Employee,Integer> {
 
     @Query("select e from Employee e where e.email=?1 and e.password=?2")
     List<Employee> findEmployeeByEmailAndPassword(String email,String password);
+    @Query("select e from Employee e where e.email=?1")
+    List<Employee> findEmployeeByEmail(String email);
 
     @Query("DELETE FROM Employee e WHERE e.email = ?1")
     void deleEmployeeByEmail(String email);

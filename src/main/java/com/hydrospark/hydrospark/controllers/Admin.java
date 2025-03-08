@@ -4,9 +4,11 @@ package com.hydrospark.hydrospark.controllers;
 import com.hydrospark.hydrospark.entities.Employee;
 import com.hydrospark.hydrospark.entities.Product;
 import com.hydrospark.hydrospark.entities.SubProducts;
+import com.hydrospark.hydrospark.entities.User;
 import com.hydrospark.hydrospark.repositories.EmployeeRepo;
 import com.hydrospark.hydrospark.repositories.ProductRepo;
 import com.hydrospark.hydrospark.repositories.SubProdRepo;
+import com.hydrospark.hydrospark.repositories.UserRepo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -40,6 +42,9 @@ public class Admin {
     @Autowired
     private SubProdRepo subProdRepo;
 
+    @Autowired
+    private UserRepo userRepo;
+
     @GetMapping("")
     public String adminHome(){
         System.out.println("Here");
@@ -50,7 +55,6 @@ public class Admin {
 
     @GetMapping("/employeeLogin")
     public String getEmployeeLogin(HttpSession session){
-        session.setAttribute("error","In employeeLogin get");
         return "employeeSignin.html";
     }
     @PostMapping("/employeeLogin")
@@ -78,7 +82,6 @@ public class Admin {
 
     @GetMapping("/addEmployee")
     public String getAddEmployee(Model model){
-        System.out.println(model.getAttribute("employee"));
         return "addEmployee.html";
     }
     public int findLastDigit(String email){
@@ -148,7 +151,7 @@ public class Admin {
             SubProducts subProd=new SubProducts(subtype, price, description, getProd,imageBytes);
             subProdRepo.save(subProd);
 
-            return "redirect:/admin/";
+            return "redirect:/admin";
         }
         else{
             return "redirect:/admin/error";
@@ -218,17 +221,77 @@ public class Admin {
         if(session.getAttribute("employee")!=null && validRoles.contains(session.getAttribute("role"))){
             String empEmail=request.getParameter("Email");
             employeeRepo.deleEmployeeByEmail(empEmail);
-            return "redirect:/admin/";
+            return "redirect:/admin";
         }
         return "redirect:/admin/error";
     }
 
+    @GetMapping("/showvisited")
+    public String shoVistedUsers(Model model,HttpSession session){
+        List<String> roles=List.of("admin","manager");
+        if(session.getAttribute("employee")!=null && roles.contains(session.getAttribute("role").toString().toLowerCase())){
+            List<User> allUser=(userRepo.findAll());
+            List<Map<String,String>> visited=new ArrayList<>();
+            int c=0;
+            for(User user:allUser){
+                if (user.visitedProduct==true && user.contacted==false){
+                    c++;
+                    Map<String,String> map=new HashMap<>();
+                    map.put("id", String.valueOf(user.Id));
+                    map.put("firstName",user.firstName);
+                    map.put("lastName",user.lastName);
+                    map.put("email",user.email);
+                    map.put("number",user.number+"");
+                    map.put("contacted",user.contacted+"");
+                    map.put("url","/admin/contacted/"+user.Id);
+                    map.put("date", String.valueOf(user.dateOfProductVisit).split(" ")[0]);
+                    visited.add(map);
+                }
+            }
+            visited.sort((u1, u2) -> u1.get("date").compareTo(u2.get("date")));
+            if (c>0){
+                model.addAttribute("visited",visited);
+            }
+            else{
+                model.addAttribute("visited",null);
+            }
 
+
+            return "visited";
+        }
+        return "redirect:/admin";
+    }
+
+    @PostMapping("/contacted/{email}")
+    public String contacted(@PathVariable String email){
+        User user=userRepo.findByEmail(email).get(0);
+        user.contacted=true;
+        userRepo.save(user);
+        return "redirect:/admin/showvisited";
+    }
+    @GetMapping("/profile")
+    public String Userprofile(HttpSession session,Model model){
+        String employee= (String) session.getAttribute("employee");
+        if(session.getAttribute("employee")==null){
+            return "redirect:/admin";
+        }
+        if(employee!=null){
+            Employee userProfile=employeeRepo.findEmployeeByEmail(employee).get(0);
+            System.out.printf(userProfile.getEmail());
+            model.addAttribute("firstName",userProfile.getFirstName());
+            model.addAttribute("lastName",userProfile.getLastName());
+            model.addAttribute("email",userProfile.getEmail());
+            model.addAttribute("password",userProfile.getPassword());
+            model.addAttribute("role",userProfile.getRole());
+
+        }
+        return "profile.html";
+    }
 
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();
-        return  "redirect:/admin/";
+        return  "redirect:/admin";
     }
     @GetMapping("/error")
     public String error(){

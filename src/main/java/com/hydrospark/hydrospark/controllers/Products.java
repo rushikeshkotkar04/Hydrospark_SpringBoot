@@ -46,8 +46,15 @@ public class Products {
         if(session.getAttribute("user")==null && session.getAttribute("employee")==null){
             String redirectURL="product/productdetails/"+prodName;
             session.setAttribute("redirectURL",redirectURL);
+
             return "redirect:/signin";
         }
+        String user= (String) session.getAttribute("user");
+        Date currentDate = new Date();
+        User userUp=userRepo.findByEmail(user).get(0);
+        userUp.visitedProduct=true;
+        userUp.dateOfProductVisit=currentDate;
+        userRepo.save(userUp);
         session.setAttribute("mainProductName",productRepo);
         List<SubProducts> subProducts=productRepo.findSubProduct(prodName);
         System.out.println(subProducts.get(0).getSubTypeName());
@@ -76,6 +83,12 @@ public class Products {
             session.setAttribute("redirectURL",redirectURL);
             return "redirect:/signin";
         }
+        String user= (String) session.getAttribute("user");
+        Date currentDate = new Date();
+        User userUp=userRepo.findByEmail(user).get(0);
+        userUp.visitedProduct=true;
+        userUp.dateOfProductVisit=currentDate;
+        userRepo.save(userUp);
         session.setAttribute("subProductName",subtype);
         List<SubProducts> subProducts=subProdRepo.findSubProductByName(subtype);
         List<Map<String,String>> base64Images = new ArrayList<>();
