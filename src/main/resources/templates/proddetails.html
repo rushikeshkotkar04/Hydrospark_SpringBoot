@@ -16,14 +16,17 @@
     <div class="row">
         <!-- Iterate over the productDetails list -->
         <div th:each="prod : ${productDetails}" class="col-md-4 mb-3">
-            <div class="card">
-                <!-- Display the base64 image -->
-                <img th:src="'data:image/png;base64,' + ${prod.img}" class="card-img-top" alt="Product Image" />
-                <div class="card-body">
-                    <!-- Display product name -->
-                    <h5 class="card-title" th:text="${prod.prodName}"></h5>
+            <!-- Make the entire card clickable by wrapping it in an anchor tag -->
+            <a th:href="@{${prod.suburl}}" class="text-decoration-none">
+                <div class="card">
+                    <!-- Display the base64 image -->
+                    <img th:src="'data:image/png;base64,' + ${prod.img}" class="card-img-top" alt="Product Image" />
+                    <div class="card-body">
+                        <!-- Display product name -->
+                        <h5 class="card-title" th:text="${prod.prodName}"></h5>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </div>
 </div>
