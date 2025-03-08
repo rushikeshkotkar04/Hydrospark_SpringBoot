@@ -220,7 +220,8 @@ public class Admin {
         List<String> validRoles=List.of("admin","manager");
         if(session.getAttribute("employee")!=null && validRoles.contains(session.getAttribute("role"))){
             String empEmail=request.getParameter("Email");
-            employeeRepo.deleEmployeeByEmail(empEmail);
+            Employee employee=employeeRepo.findEmployeeByEmail(empEmail).get(0);
+            employeeRepo.delete(employee);
             return "redirect:/admin";
         }
         return "redirect:/admin/error";

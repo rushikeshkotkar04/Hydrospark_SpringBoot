@@ -127,10 +127,8 @@ public class Home {
             }
 
            if (matcher.matches()){
-               System.out.println("Hereeeeeee");
                 User newUser=new User(firstName,lastName,email,password,number);
                 Random random = new Random();
-                // Generate a random 4-digit OTP
                 String otp = 1000 + random.nextInt(9000)+"";
                 session.setAttribute("otp",otp);
                 String subject="Hydrospark Account OTP"+otp;

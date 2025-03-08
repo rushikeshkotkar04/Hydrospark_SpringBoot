@@ -43,25 +43,36 @@ public class Products {
 
     @GetMapping("productdetails/{prodName}")
     public String getProducts(@PathVariable String prodName, Model model, HttpSession session) throws SQLException {
-        if(session.getAttribute("user")==null && session.getAttribute("employee")==null){
+        if(session.getAttribute("user")==null){
             String redirectURL="product/productdetails/"+prodName;
             session.setAttribute("redirectURL",redirectURL);
 
             return "redirect:/signin";
         }
         String user= (String) session.getAttribute("user");
-        Date currentDate = new Date();
-        User userUp=userRepo.findByEmail(user).get(0);
-        userUp.visitedProduct=true;
-        userUp.dateOfProductVisit=currentDate;
-        userRepo.save(userUp);
+        if(user!=null){
+            Date currentDate = new Date();
+            User userUp=userRepo.findByEmail(user).get(0);
+            userUp.visitedProduct=true;
+            userUp.dateOfProductVisit=currentDate;
+            userRepo.save(userUp);
+        }
         session.setAttribute("mainProductName",productRepo);
-        List<SubProducts> subProducts=productRepo.findSubProduct(prodName);
-        System.out.println(subProducts.get(0).getSubTypeName());
+//        List<SubProducts> subProducts=productRepo.findSubProduct(prodName);
+        List<SubProducts> subProducts=subProdRepo.getAll();
+        List<SubProducts> listOfSameMainProd=new ArrayList<>();
+        for(SubProducts subprod:subProducts){
+            if(subprod.getProduct().getProductName().equals(prodName)){
+                listOfSameMainProd.add(subprod);
+            }
+        }
         List<Map<String, String>> base64Images = new ArrayList<>();
-
-        for (SubProducts subProduct : subProducts) {
-            Blob blob = new SerialBlob(subProduct.getProduct().getProdImg());
+        for (SubProducts subProduct : listOfSameMainProd) {
+            var img=subProduct.getSubProdImg();
+            if (img==null){
+                img=subProduct.getProduct().getProdImg();
+            }
+            Blob blob = new SerialBlob(img);
             byte[] bytes = blob.getBytes(1, (int) blob.length());
             String base64Image = Base64.getEncoder().encodeToString(bytes);
             Map<String, String> prodDetails = new HashMap<>();
