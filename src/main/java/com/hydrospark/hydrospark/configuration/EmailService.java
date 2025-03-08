@@ -16,6 +16,7 @@ public class EmailService {
 
         // Recipient's email
         String to = email;
+        System.out.println(to);
 
         // Set properties
         Properties properties = new Properties();

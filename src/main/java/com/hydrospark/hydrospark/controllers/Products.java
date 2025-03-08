@@ -11,10 +11,7 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.*;
 import javax.mail.*;
@@ -129,12 +126,13 @@ public class Products {
 
     }
 
-    @GetMapping("/enquiry")
-    public String prodEnquiry(HttpSession session){
+    @PostMapping("/enquiry/{subProd}")
+    public String prodEnquiry(HttpSession session,@PathVariable String subProd,Model model){
         String product= (String) session.getAttribute("subProductName");
         if (product==null){
             return "redirect:/";
         }
+        System.out.println("Enquiring");
         System.out.println(session.getAttribute("mainProductName"));
         String[] prodArray=product.split("/");
         product=prodArray[prodArray.length-1];
@@ -150,9 +148,10 @@ public class Products {
                 + "Required product: " + product + "\n\n"
                 + "Thanks and regards,\n"
                 + userDetails.email;
-        emailService.sendEmail(session,userDetails.email,subject,body);
-
-        return "redirect:/signin";
+        emailService.sendEmail(session,"ar.webappdevs@gmail.com",subject,body);
+        model.addAttribute("error","csmcnnscnskdn");
+        String url= "redirect:/product/productdescription/"+subProd;
+        return url;
     }
 
     @GetMapping("/{query}")

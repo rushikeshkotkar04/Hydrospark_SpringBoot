@@ -235,7 +235,7 @@ public class Admin {
             List<Map<String,String>> visited=new ArrayList<>();
             int c=0;
             for(User user:allUser){
-                if (user.visitedProduct==true && user.contacted==false){
+                if (user.visitedProduct==true){
                     c++;
                     Map<String,String> map=new HashMap<>();
                     map.put("id", String.valueOf(user.Id));
