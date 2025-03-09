@@ -23,4 +23,7 @@ public interface ProductRepo extends JpaRepository<Product,Integer> {
     @Query("select p.subProducts from Product p where p.productName=?1")
     List<SubProducts> findSubProduct(String name);
 
+    @Query("DELETE from Product p where p.proId=?1")
+    void deleteProductById(int id);
+
 }

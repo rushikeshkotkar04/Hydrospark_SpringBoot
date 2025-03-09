@@ -289,6 +289,15 @@ public class Admin {
         return "profile.html";
     }
 
+    @GetMapping("/removeproduct/{productName}")
+    @ResponseBody
+    public String removeProduct(@PathVariable String productName){
+        Product prod=productRepo.findByName(productName);
+        System.out.println(prod.getProductName());
+//        productRepo.deleteProductById(prod.getProId());
+        return productName;
+    }
+
     @GetMapping("/logout")
     public String logout(HttpSession session){
         session.invalidate();

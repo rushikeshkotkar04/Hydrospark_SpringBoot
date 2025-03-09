@@ -156,6 +156,7 @@ public class Products {
         return url;
     }
 
+
     @GetMapping("/{query}")
     public String pp(@PathVariable  String query,Model model) throws SQLException {
         List<Product> products=List.of(productRepo.findByName(query));
