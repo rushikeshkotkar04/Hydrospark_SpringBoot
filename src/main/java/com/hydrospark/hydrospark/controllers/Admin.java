@@ -12,6 +12,7 @@ import com.hydrospark.hydrospark.repositories.UserRepo;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -291,10 +292,12 @@ public class Admin {
 
     @GetMapping("/removeproduct/{productName}")
     @ResponseBody
+    @Transactional
     public String removeProduct(@PathVariable String productName){
         Product prod=productRepo.findByName(productName);
-        System.out.println(prod.getProductName());
-//        productRepo.deleteProductById(prod.getProId());
+        System.out.println(prod.getProId());
+        productRepo.deleteProductById(prod.getProId());
+        subProdRepo.deleteAllSubProductByProdId(prod.getProId());
         return productName;
     }
 
