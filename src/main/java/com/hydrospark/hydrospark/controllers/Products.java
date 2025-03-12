@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
@@ -42,13 +43,14 @@ public class Products {
 
     @GetMapping("productdetails/{prodName}")
     public String getProducts(@PathVariable String prodName, Model model, HttpSession session) throws SQLException {
-        if(session.getAttribute("user")==null){
-            String redirectURL="product/productdetails/"+prodName;
-            session.setAttribute("redirectURL",redirectURL);
-
-            return "redirect:/signin";
-        }
+//        if(session.getAttribute("user")==null){
+//            String redirectURL="product/productdetails/"+prodName;
+//            session.setAttribute("redirectURL",redirectURL);
+//
+//            return "redirect:/signin";
+//        }
         String user= (String) session.getAttribute("user");
+        prodName = URLDecoder.decode(prodName, StandardCharsets.UTF_8);
         if(user!=null){
             Date currentDate = new Date();
             User userUp=userRepo.findByEmail(user).get(0);
@@ -88,6 +90,7 @@ public class Products {
 
     @GetMapping("productdescription/{subtype}")
     public String getSubType(@PathVariable String subtype,Model model,HttpSession session) throws SQLException {
+        subtype = URLDecoder.decode(subtype, StandardCharsets.UTF_8);
         if(session.getAttribute("user")==null && session.getAttribute("employee")==null){
             String redirectURL="product/productdescription/"+subtype;
             session.setAttribute("redirectURL",redirectURL);
@@ -130,6 +133,7 @@ public class Products {
 
     @PostMapping("/enquiry/{subProd}")
     public String prodEnquiry(HttpSession session,@PathVariable String subProd,Model model){
+        subProd = URLDecoder.decode(subProd, StandardCharsets.UTF_8);
         String product= (String) session.getAttribute("subProductName");
         if (product==null){
             return "redirect:/";
@@ -159,6 +163,7 @@ public class Products {
 
     @GetMapping("/{query}")
     public String pp(@PathVariable  String query,Model model) throws SQLException {
+        query = URLDecoder.decode(query, StandardCharsets.UTF_8);
         List<Product> products=List.of(productRepo.findByName(query));
         List<Map<String,String>> base64Images = new ArrayList<>();
         for(Product prod:products){

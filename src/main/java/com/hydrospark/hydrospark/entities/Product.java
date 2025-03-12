@@ -26,7 +26,7 @@ public class Product {
     }
 
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product",orphanRemoval = true)
     private List<SubProducts> subProducts;
 
     public Product(String productName, byte[] prodImg) {

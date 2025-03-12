@@ -33,6 +33,10 @@ public class Home {
     @Autowired
     private EmailService emailService;
 
+    @GetMapping("/try")
+    public String tryHtml(){
+        return "hm.html";
+    }
     @GetMapping("/")
     public String home(Model model,HttpSession session) throws SQLException {
 //        email="sachin@hydrospark.org";

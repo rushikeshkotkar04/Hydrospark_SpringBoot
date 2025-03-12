@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Head content if needed -->
+</head>
+<body>
+<header th:fragment="header" class="modern-header">
+  <div class="logo">
+    <a href="/">Thymlyf</a>
+  </div>
+  <nav class="nav-links">
+    <a href="/">Home</a>
+    <a href="/about">About</a>
+    <a href="/contact">Contact</a>
+  </nav>
+  <div class="auth-buttons">
+    <a href="/signin" class="btn-signin">Sign In</a>
+    <a href="/signup" class="btn-signup">Sign Up</a>
+  </div>
+</header>
+</body>
+</html>

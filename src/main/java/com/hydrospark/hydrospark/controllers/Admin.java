@@ -23,6 +23,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.sql.rowset.serial.SerialBlob;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.*;
@@ -152,7 +154,7 @@ public class Admin {
             SubProducts subProd=new SubProducts(subtype, price, description, getProd,imageBytes);
             subProdRepo.save(subProd);
 
-            return "redirect:/admin";
+            return "redirect:/admin/products";
         }
         else{
             return "redirect:/admin/error";
@@ -266,6 +268,7 @@ public class Admin {
 
     @PostMapping("/contacted/{email}")
     public String contacted(@PathVariable String email){
+        email = URLDecoder.decode(email, StandardCharsets.UTF_8);
         User user=userRepo.findByEmail(email).get(0);
         user.contacted=true;
         userRepo.save(user);
@@ -290,16 +293,85 @@ public class Admin {
         return "profile.html";
     }
 
-    @GetMapping("/removeproduct/{productName}")
-    @ResponseBody
+    @GetMapping("/products")
+    public String allproducts(Model model,HttpSession session){
+        String employee= (String) session.getAttribute("employee");
+        if(session.getAttribute("employee")==null){
+            return "redirect:/admin";
+        }
+        List<Product> allProducts=productRepo.findAll();
+        System.out.println("Prds"+allProducts);
+        List<Map<String,String>> prods=new ArrayList<>();
+        for(Product product:allProducts){
+            Map<String,String> map=new HashMap<>();
+            String prodname=product.getProductName();
+            map.put("prodName",prodname);
+            map.put("removeproduct"+prodname,"/admin/removeproduct/"+prodname);
+            map.put("editProduct"+prodname,"/admin/editproduct/"+prodname);
+            prods.add(map);
+        }
+        List<SubProducts> allSubProducts=subProdRepo.findAll();
+        System.out.println("subProds"+allSubProducts);
+        List<Map<String,String>> subProds=new ArrayList<>();
+        for(SubProducts subProd:allSubProducts){
+            Map<String,String> map=new HashMap<>();
+            String subprodname=subProd.getSubTypeName();
+            map.put("subprodName",subProd.getSubTypeName());
+            map.put("removesubproduct"+subprodname,"/admin/removesubproduct/"+subprodname);
+            map.put("editsubproduct"+subprodname,"/admin/editsubproduct/"+subprodname);
+            prods.add(map);
+        }
+
+        System.out.println(prods.size());
+//        for(Map<String,String> m:prods){
+//            for(String s:m.keySet()){
+//                System.out.println(m.get(s));
+//            }
+//        }
+        model.addAttribute("products",prods);
+        return "allproducts";
+    }
+
+
+
+    @PostMapping("/removeproduct/{productName}")
     @Transactional
     public String removeProduct(@PathVariable String productName){
+        productName = URLDecoder.decode(productName, StandardCharsets.UTF_8);
         Product prod=productRepo.findByName(productName);
-        System.out.println(prod.getProId());
-        productRepo.deleteProductById(prod.getProId());
-        subProdRepo.deleteAllSubProductByProdId(prod.getProId());
-        return productName;
+        productRepo.deleteById(prod.getProId());
+        return "redirect:/admin/products";
     }
+    @PostMapping("/removesubproduct/{subProduct}")
+    @Transactional
+    public String removeSubProduct(@PathVariable String subProduct){
+        subProduct = URLDecoder.decode(subProduct, StandardCharsets.UTF_8);
+        SubProducts subProd=subProdRepo.findSubProductByName(subProduct).get(0);
+        subProdRepo.deleteById(subProd.getSubProdId());
+        return "redirect:/admin/products";
+    }
+
+
+    @PostMapping("/editproduct/{productName}")
+    @ResponseBody
+    @Transactional
+    public String editProduct(@PathVariable String productName){
+        productName = URLDecoder.decode(productName, StandardCharsets.UTF_8);
+        Product prod=productRepo.findByName(productName);
+
+        productRepo.findByName(productName);
+//        productRepo.deleteById(prod.getProId());
+        return "redirect:/admin/products";
+    }
+    @PostMapping("/editsubproduct/{subprod}")
+    @ResponseBody
+    @Transactional
+    public String editSubProduct(@PathVariable String subprod){
+        subprod = URLDecoder.decode(subprod, StandardCharsets.UTF_8);
+//        productRepo.deleteById(prod.getProId());
+        return "redirect:/admin/products";
+    }
+
 
     @GetMapping("/logout")
     public String logout(HttpSession session){

@@ -1,0 +1,194 @@
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <title>All Products</title>-->
+<!--    <link rel="stylesheet" href="/css/styles.css" />-->
+<!--    <style>-->
+<!--        /* Button styles */-->
+<!--        .action-btn {-->
+<!--            padding: 10px 20px;-->
+<!--            border-radius: 5px;-->
+<!--            border: none;-->
+<!--            font-weight: bold;-->
+<!--            cursor: pointer;-->
+<!--            transition: transform 0.3s, box-shadow 0.3s;-->
+<!--        }-->
+
+<!--        .edit-btn {-->
+<!--            background-color: #4CAF50;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        .edit-btn:hover {-->
+<!--            background-color: #45a049;-->
+<!--            transform: translateY(-2px); /* Slight lift effect */-->
+<!--            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        .remove-btn {-->
+<!--            background-color: #f44336;-->
+<!--            color: white;-->
+<!--        }-->
+
+<!--        .remove-btn:hover {-->
+<!--            background-color: #e53935;-->
+<!--            transform: translateY(-2px); /* Slight lift effect */-->
+<!--            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);-->
+<!--        }-->
+
+<!--        /* Container for buttons (if needed) */-->
+<!--        .btn-container {-->
+<!--            display: flex;-->
+<!--            gap: 10px;-->
+<!--            align-items: center;-->
+<!--        }-->
+<!--    </style>-->
+<!--</head>-->
+<!--<body>-->
+
+<!--<h1>All Products</h1>-->
+
+<!--<table>-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th>Product Name</th>-->
+<!--        <th>Actions</th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    &lt;!&ndash; Iterate over the list of products (which are maps) and show rows only if product name is not null &ndash;&gt;-->
+<!--    <tr th:each="productMap : ${products}" th:if="${productMap['prodName'] != null}">-->
+<!--        <td th:text="${productMap['prodName'] != null ? productMap['prodName'] : 'No Name Available'}"></td>-->
+<!--        <td class="btn-container">-->
+<!--            &lt;!&ndash; Edit Form with dynamic URL &ndash;&gt;-->
+<!--            <form th:action="${productMap['editProduct' + productMap['prodName']]}" method="post">-->
+<!--                <input type="hidden" name="prodName" th:value="${productMap['prodName']}" />-->
+<!--                <button type="submit" class="action-btn edit-btn">Edit</button>-->
+<!--            </form>-->
+<!--            &lt;!&ndash; Remove Form with dynamic URL &ndash;&gt;-->
+<!--            <form th:action="${productMap['removeproduct' + productMap['prodName']]}" method="post">-->
+<!--                <input type="hidden" name="prodName" th:value="${productMap['prodName']}" />-->
+<!--                <button type="submit" class="action-btn remove-btn">Remove</button>-->
+<!--            </form>-->
+<!--        </td>-->
+<!--    </tr>-->
+
+<!--    &lt;!&ndash; Iterate over sub-products and show rows only if sub-product name is not null &ndash;&gt;-->
+<!--    <tr th:each="subProductMap : ${products}" th:if="${subProductMap['subprodName'] != null}">-->
+<!--        <td th:text="${subProductMap['subprodName'] != null ? subProductMap['subprodName'] : 'No Sub-Product Name Available'}"></td>-->
+<!--        <td class="btn-container">-->
+<!--            &lt;!&ndash; Edit Sub-product Form with dynamic URL &ndash;&gt;-->
+<!--            <form th:action="${subProductMap['editsubproduct' + subProductMap['subprodName']]}" method="post">-->
+<!--                <input type="hidden" name="subprodName" th:value="${subProductMap['subprodName']}" />-->
+<!--                <button type="submit" class="action-btn edit-btn">Edit</button>-->
+<!--            </form>-->
+<!--            &lt;!&ndash; Remove Sub-product Form with dynamic URL &ndash;&gt;-->
+<!--            <form th:action="${subProductMap['removesubproduct' + subProductMap['subprodName']]}" method="post">-->
+<!--                <input type="hidden" name="subprodName" th:value="${subProductMap['subprodName']}" />-->
+<!--                <button type="submit" class="action-btn remove-btn">Remove</button>-->
+<!--            </form>-->
+<!--        </td>-->
+<!--    </tr>-->
+<!--    </tbody>-->
+<!--</table>-->
+
+<!--</body>-->
+<!--</html>-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>All Products</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+    <style>
+        /* Button styles */
+        .action-btn {
+            padding: 10px 20px;
+            border-radius: 5px;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .edit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .edit-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .remove-btn:hover {
+            background-color: #e53935;
+            transform: translateY(-2px); /* Slight lift effect */
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Container for buttons (if needed) */
+        .btn-container {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>All Products</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Product Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate over the list of products (which are maps) and show rows only if product name is not null -->
+    <tr th:each="productMap : ${products}" th:if="${productMap['prodName'] != null}">
+        <td th:text="${productMap['prodName'] != null ? productMap['prodName'] : 'No Name Available'}"></td>
+        <td class="btn-container">
+            <!-- Edit Form with dynamic URL -->
+            <form th:action="${productMap['editProduct' + productMap['prodName']]}" method="post">
+                <input type="hidden" name="prodName" th:value="${productMap['prodName']}" />
+                <button type="submit" class="action-btn edit-btn">Edit</button>
+            </form>
+            <!-- Remove Form with dynamic URL -->
+            <form th:action="${productMap['removeproduct' + productMap['prodName']]}" method="post">
+                <input type="hidden" name="prodName" th:value="${productMap['prodName']}" />
+                <button type="submit" class="action-btn remove-btn">Remove</button>
+            </form>
+        </td>
+    </tr>
+
+    <!-- Iterate over sub-products and show rows only if sub-product name is not null -->
+    <tr th:each="subProductMap : ${products}" th:if="${subProductMap['subprodName'] != null}">
+        <td th:text="${subProductMap['subprodName'] != null ? subProductMap['subprodName'] : 'No Sub-Product Name Available'}"></td>
+        <td class="btn-container">
+            <!-- Edit Sub-product Form with dynamic URL -->
+            <form th:action="${subProductMap['editsubproduct' + subProductMap['subprodName']]}" method="post">
+                <input type="hidden" name="subprodName" th:value="${subProductMap['subprodName']}" />
+                <button type="submit" class="action-btn edit-btn">Edit</button>
+            </form>
+            <!-- Remove Sub-product Form with dynamic URL -->
+            <form th:action="${subProductMap['removesubproduct' + subProductMap['subprodName']]}" method="post">
+                <input type="hidden" name="subprodName" th:value="${subProductMap['subprodName']}" />
+                <button type="submit" class="action-btn remove-btn">Remove</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
